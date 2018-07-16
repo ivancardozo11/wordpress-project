@@ -6,20 +6,27 @@ var app = {
 
 	getPosts: function() {
 
-		var rootURL = 'http://www.wp4.dev/wp-json';
+		var rootURL = 'http://localhost/wp-json/wp/v2';
 
 		$.ajax({
 			type: 'GET',
-			url: rootURL + '/posts?type=news',
+			url: rootURL + '/viaje',
 			dataType: 'json',
 			success: function(data){
-				
+
 				$.each(data, function(index, value) {
-					console.log(value.featured_image);
+					
 			      $('ul.topcoat-list').append('<li class="topcoat-list__item">' +
-			      	'<img src="'+value.featured_image.attachment_meta.sizes.medium.url+'" /><br>' +
-			      	'<h3>'+value.title+'</h3>' +
-			      	'<p>'+value.excerpt+'</p></li>');
+			      	'<h3>'+value.title.rendered+'</h3>' +
+			      	'<p>'+value.content.rendered+'</p>' +
+			      	'<p><strong>Destino: </strong>'+value.destino+ '</p>'+
+			      	'<p><strong>Vacunas obligatorias: </strong>'+value.vacunas_obligatorias+ '</p>'+
+			      	'<p><strong>Vacunas recomendadas: </strong>'+value.vacunas_recomendadas+ '</p>'+
+			      	'<p><strong>Transporte local: </strong>'+value.transporte_local+ '</p>'+
+			      	'<p><strong>Peligrosidad: </strong>'+value.peligrosidad + '</p>'+
+			      	'<p><strong>Moneda local: </strong>'+value.moneda_local + '</p>'+
+
+							'</li>');
 			    });
 			},
 			error: function(error){
